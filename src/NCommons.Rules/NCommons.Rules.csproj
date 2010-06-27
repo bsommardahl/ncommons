@@ -70,7 +70,7 @@
     <Compile Include="ICommand.cs" />
     <Compile Include="ICommandProcessor.cs" />
     <Compile Include="IMissingCommandStrategy.cs" />
-    <Compile Include="IRuleValidator.cs" />
+    <Compile Include="IRulesValidator.cs" />
     <Compile Include="IRulesEngine.cs" />
     <Compile Include="MappingRulesEngine.cs" />
     <Compile Include="Mapping\Association.cs" />

@@ -25,7 +25,7 @@ namespace RulesEngineExample.Infrastructure
 
             For<IServiceLocator>().Singleton().Use<StructureMapServiceLocator>();
             For<IControllerFactory>().Use<StructureMapControllerFactory>();
-            For<IRuleValidator>().Use<FluentValidationRuleValidator>();
+            For<IRulesValidator>().Use<FluentValidationRulesValidator>();
             For<IRulesEngine>().Use<MappingRulesEngine>();
             For<IMessageMapper>().Use<MessageMapper>();
             For<IMissingCommandStrategy>().Use<ThrowExceptionMissingCommandStrategy>();

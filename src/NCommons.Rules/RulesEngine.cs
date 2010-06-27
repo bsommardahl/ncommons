@@ -5,12 +5,12 @@ namespace NCommons.Rules
 {
     public class RulesEngine : IRulesEngine
     {
-        readonly IRuleValidator _ruleValidator;
+        readonly IRulesValidator _rulesValidator;
         readonly IMissingCommandStrategy _missingCommandStrategy;
         
-        public RulesEngine(IRuleValidator ruleValidator, IMissingCommandStrategy missingCommandStrategy)
+        public RulesEngine(IRulesValidator rulesValidator, IMissingCommandStrategy missingCommandStrategy)
         {
-            _ruleValidator = ruleValidator;
+            _rulesValidator = rulesValidator;
             _missingCommandStrategy = missingCommandStrategy;
         }
 
@@ -30,7 +30,7 @@ namespace NCommons.Rules
 
         protected virtual MessageValidationResult OnValidateMessage(object message)
         {
-            RuleValidationResult result = _ruleValidator.Validate(message);
+            RuleValidationResult result = _rulesValidator.Validate(message);
             return new MessageValidationResult {Result = result, ValidatedMessage = message};
         }
 

@@ -1,6 +1,6 @@
 ﻿namespace NCommons.Rules
 {
-    public interface IRuleValidator
+    public interface IRulesValidator
     {
         RuleValidationResult Validate(object message);
     }

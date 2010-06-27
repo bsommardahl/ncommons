@@ -109,7 +109,7 @@ namespace NCommons.Rules.Specs
     public class when_processing_a_message_without_a_matching_command_with_default_missing_command_strategy
     {
         static TestMessage _message;
-        protected static Mock<IRuleValidator> _mockMessageValidator;
+        protected static Mock<IRulesValidator> _mockMessageValidator;
         protected static Mock<IServiceLocator> _mockServiceLocator;
         protected static ProcessResult _processResults;
         static RuleValidationResult _ruleValidationResult;
@@ -119,7 +119,7 @@ namespace NCommons.Rules.Specs
             {
                 _mockServiceLocator = new Mock<IServiceLocator>();
                 ServiceLocator.SetLocatorProvider(() => _mockServiceLocator.Object);
-                _mockMessageValidator = new Mock<IRuleValidator>();
+                _mockMessageValidator = new Mock<IRulesValidator>();
                 _message = new TestMessage();
                 _ruleValidationResult = new RuleValidationResult();
                 _mockMessageValidator.Setup(s => s.Validate(Moq.It.IsAny<object>()))
@@ -136,7 +136,7 @@ namespace NCommons.Rules.Specs
 
     public abstract class given_a_standard_rules_engine_context
     {
-        protected static Mock<IRuleValidator> MockMessageValidator;
+        protected static Mock<IRulesValidator> MockMessageValidator;
         protected static Mock<IMissingCommandStrategy> MockMissingCommandStrategy;
         protected static Mock<IServiceLocator> MockServiceLocator;
         protected static RulesEngine RulesEngine;
@@ -145,7 +145,7 @@ namespace NCommons.Rules.Specs
             {
                 MockServiceLocator = new Mock<IServiceLocator>();
                 ServiceLocator.SetLocatorProvider(() => MockServiceLocator.Object);
-                MockMessageValidator = new Mock<IRuleValidator>();
+                MockMessageValidator = new Mock<IRulesValidator>();
                 MockMissingCommandStrategy = new Mock<IMissingCommandStrategy>();
                 RulesEngine = new RulesEngine(MockMessageValidator.Object, MockMissingCommandStrategy.Object);
             };

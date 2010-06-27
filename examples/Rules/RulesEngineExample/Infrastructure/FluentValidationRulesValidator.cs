@@ -6,7 +6,7 @@ using NCommons.Rules;
 
 namespace RulesEngineExample.Infrastructure
 {
-    public class FluentValidationRuleValidator : IRuleValidator
+    public class FluentValidationRulesValidator : IRulesValidator
     {
         public RuleValidationResult Validate(object message)
         {

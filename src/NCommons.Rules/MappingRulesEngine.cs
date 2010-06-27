@@ -6,8 +6,8 @@ namespace NCommons.Rules
     {
         readonly IMessageMapper _messageMapper;
 
-        public MappingRulesEngine(IRuleValidator ruleValidator, IMessageMapper messageMapper, IMissingCommandStrategy missingCommandStrategy)
-            : base(ruleValidator, missingCommandStrategy)
+        public MappingRulesEngine(IRulesValidator rulesValidator, IMessageMapper messageMapper, IMissingCommandStrategy missingCommandStrategy)
+            : base(rulesValidator, missingCommandStrategy)
         {
             _messageMapper = messageMapper;
         }

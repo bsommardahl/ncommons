@@ -65,7 +65,7 @@ namespace NCommons.Rules.Specs
     public abstract class given_a_mapping_rules_engine_context
     {
         protected static Mock<IMessageMapper> MockMessageMapper;
-        protected static Mock<IRuleValidator> MockMessageValidator;
+        protected static Mock<IRulesValidator> MockMessageValidator;
         protected static Mock<IMissingCommandStrategy> MockMissingCommandStrategy;
         protected static Mock<IServiceLocator> MockServiceLocator;
         protected static RulesEngine RulesEngine;
@@ -74,7 +74,7 @@ namespace NCommons.Rules.Specs
             {
                 MockServiceLocator = new Mock<IServiceLocator>();
                 ServiceLocator.SetLocatorProvider(() => MockServiceLocator.Object);
-                MockMessageValidator = new Mock<IRuleValidator>();
+                MockMessageValidator = new Mock<IRulesValidator>();
                 MockMessageMapper = new Mock<IMessageMapper>();
                 MockMissingCommandStrategy = new Mock<IMissingCommandStrategy>();
                 RulesEngine = new MappingRulesEngine(MockMessageValidator.Object, MockMessageMapper.Object,

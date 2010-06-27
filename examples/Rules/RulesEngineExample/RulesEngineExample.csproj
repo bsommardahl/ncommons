@@ -86,7 +86,7 @@
     <Compile Include="Data\ProductRepository.cs" />
     <Compile Include="Infrastructure\Bootstrapper.cs" />
     <Compile Include="Infrastructure\DependencyRegistry.cs" />
-    <Compile Include="Infrastructure\FluentValidationRuleValidator.cs" />
+    <Compile Include="Infrastructure\FluentValidationRulesValidator.cs" />
     <Compile Include="Infrastructure\MessageMapper.cs" />
     <Compile Include="Infrastructure\StructureMapControllerFactory.cs" />
     <Compile Include="Infrastructure\StructureMapServiceLocator.cs" />
