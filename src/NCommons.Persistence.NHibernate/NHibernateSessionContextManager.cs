@@ -1,5 +1,4 @@
 using System;
-using System.Diagnostics.Contracts;
 using NHibernate;
 using NHibernate.Context;
 
@@ -10,12 +9,14 @@ namespace NCommons.Persistence.NHibernate
     /// </summary>
     public class NHibernateSessionContextManager : IActiveSessionManager<ISession>
     {
-        readonly ISessionFactory _sessionFactory;
+        private readonly ISessionFactory _sessionFactory;
 
         public NHibernateSessionContextManager(ISessionFactory sessionFactory)
         {
             _sessionFactory = sessionFactory;
         }
+
+        #region IActiveSessionManager<ISession> Members
 
         public bool HasActiveSession
         {
@@ -29,7 +30,7 @@ namespace NCommons.Persistence.NHibernate
 
         public void SetActiveSession(ISession session)
         {
-            Contract.Assert(session != null);
+            if (session == null) throw new ArgumentNullException("session");
             CurrentSessionContext.Bind(session);
         }
 
@@ -40,5 +41,7 @@ namespace NCommons.Persistence.NHibernate
                 CurrentSessionContext.Unbind(_sessionFactory);
             }
         }
+
+        #endregion
     }
 }

@@ -1,7 +1,7 @@
 MSBUILD_PATH = "C:/Windows/Microsoft.NET/Framework/v4.0.30319/"
-BUILD_PATH = File.expand_path('build').sub!('/cygdrive/c/', 'c:/')
-TOOLS_PATH = File.expand_path('tools').sub!('/cygdrive/c/', 'c:/')
-REPORTS_PATH = File.expand_path('reports').sub!('/cygdrive/c/', 'c:/')
+BUILD_PATH = File.expand_path('build')
+TOOLS_PATH = File.expand_path('tools')
+REPORTS_PATH = File.expand_path('reports')
 SOLUTION = "src/NCommons.sln"
 CONFIG = "Release"
 

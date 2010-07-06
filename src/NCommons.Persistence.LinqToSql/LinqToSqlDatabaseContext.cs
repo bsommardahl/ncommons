@@ -1,6 +1,4 @@
-﻿using System.Data.Linq;
-using System.Diagnostics.Contracts;
-using NCommons.Persistence.LinqToSql.Properties;
+﻿using System;
 
 namespace NCommons.Persistence.LinqToSql
 {
@@ -8,32 +6,26 @@ namespace NCommons.Persistence.LinqToSql
 
     public class LinqToSqlDatabaseContext : IDatabaseContext
     {
-        readonly IActiveSessionManager<IDataContext> _activeSessionManager;
-        readonly DataContextProvider _dataContextProvider;
+        private readonly IActiveSessionManager<IDataContext> _activeSessionManager;
+        private readonly DataContextProvider _dataContextProvider;
 
         public LinqToSqlDatabaseContext(IActiveSessionManager<IDataContext> activeSessionManager,
                                         DataContextProvider dataContextProvider)
         {
-            Contract.Assert(activeSessionManager != null);
-            Contract.Assert(dataContextProvider != null);
+            if (activeSessionManager == null) throw new ArgumentNullException("activeSessionManager");
+            if (dataContextProvider == null) throw new ArgumentNullException("dataContextProvider");
 
             _activeSessionManager = activeSessionManager;
             _dataContextProvider = dataContextProvider;
         }
 
+        #region IDatabaseContext Members
+
         public IDatabaseSession OpenSession()
         {
-            Contract.Assert(_dataContextProvider != null, Resources.DataContextProviderNotFound);
-            Contract.Assert(_activeSessionManager != null);
-            
-            var dataContext = _dataContextProvider();
+            IDataContext dataContext = _dataContextProvider();
             _activeSessionManager.SetActiveSession(dataContext);
             return CreateDatabaseSession(dataContext);
-        }
-
-        protected virtual IDatabaseSession CreateDatabaseSession(IDataContext dataContext)
-        {
-            return new LinqToSqlDatabaseSession(dataContext);
         }
 
         public void CommitSession()
@@ -50,11 +42,18 @@ namespace NCommons.Persistence.LinqToSql
         public IDatabaseSession GetCurrentSession()
         {
             IDatabaseSession databaseSession = null;
-            
+
             if (_activeSessionManager.HasActiveSession)
                 databaseSession = CreateDatabaseSession(_activeSessionManager.GetActiveSession());
-            
+
             return databaseSession;
+        }
+
+        #endregion
+
+        protected virtual IDatabaseSession CreateDatabaseSession(IDataContext dataContext)
+        {
+            return new LinqToSqlDatabaseSession(dataContext);
         }
     }
 }

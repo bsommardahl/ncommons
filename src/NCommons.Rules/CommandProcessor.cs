@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Linq;
 using Microsoft.Practices.ServiceLocation;
+using NCommons.Rules.Properties;
 
 namespace NCommons.Rules
 {
@@ -10,6 +12,8 @@ namespace NCommons.Rules
         public IEnumerable<ReturnValue> Process(object message, IMissingCommandStrategy missingCommandStrategy)
         {
             Contract.Assert(typeof (T).IsInstanceOfType(message));
+            if (!typeof(T).IsInstanceOfType(message))
+                throw new ArgumentException(string.Format(Resources.InvalidMessageType, "message"));
 
             IList<ReturnValue> returnValues = new List<ReturnValue>();
 

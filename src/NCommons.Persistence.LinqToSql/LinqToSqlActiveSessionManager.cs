@@ -1,11 +1,12 @@
-using System.Data.Linq;
-using System.Diagnostics.Contracts;
+using System;
 
 namespace NCommons.Persistence.LinqToSql
 {
     public class LinqToSqlActiveSessionManager : IActiveSessionManager<IDataContext>
     {
-        IDataContext _session;
+        private IDataContext _session;
+
+        #region IActiveSessionManager<IDataContext> Members
 
         public bool HasActiveSession
         {
@@ -19,7 +20,7 @@ namespace NCommons.Persistence.LinqToSql
 
         public void SetActiveSession(IDataContext session)
         {
-            Contract.Assume(session != null);
+            if (session == null) throw new ArgumentNullException("session");
             _session = session;
         }
 
@@ -27,5 +28,7 @@ namespace NCommons.Persistence.LinqToSql
         {
             _session = null;
         }
+
+        #endregion
     }
 }

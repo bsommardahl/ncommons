@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Diagnostics.Contracts;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using NCommons.Logging.Properties;
 
 namespace NCommons.Logging
 {
@@ -9,13 +10,14 @@ namespace NCommons.Logging
     /// </summary>
     public class LoggingService : ILoggingService
     {
-        readonly IList<ILogger> _loggers;
+        private readonly IList<ILogger> _loggers;
 
         public LoggingService(ILogger defaultLogger)
         {
-            _loggers = new List<ILogger>();
-            _loggers.Add(defaultLogger);
+            _loggers = new List<ILogger> {defaultLogger};
         }
+
+        #region ILoggingService Members
 
         public void Write(LogEntry log)
         {
@@ -24,7 +26,7 @@ namespace NCommons.Logging
 
         public void AddLogger(ILogger logger)
         {
-            Contract.Assert(!_loggers.Contains(logger));
+            if (_loggers.Contains(logger)) throw new ArgumentException(Resources.LoggerAlreadyExists, "logger");
             _loggers.Add(logger);
         }
 
@@ -32,5 +34,7 @@ namespace NCommons.Logging
         {
             _loggers.Remove(logger);
         }
+
+        #endregion
     }
 }
