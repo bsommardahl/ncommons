@@ -22,14 +22,16 @@ namespace NCommons.Rules
             get { return _validationFailures.Count == 0; }
         }
 
-        public void AddReturnItem(ReturnValue returnItem)
+        public ProcessResult AddReturnItem(ReturnValue returnItem)
         {
             _returnItems.Add(returnItem);
+            return this;
         }
 
-        public void AddValidationFailure(RuleValidationFailure failure)
+        public ProcessResult AddValidationFailure(RuleValidationFailure failure)
         {
             _validationFailures.Add(failure);
+            return this;
         }
 
         public void Merge(ProcessResult processResult)

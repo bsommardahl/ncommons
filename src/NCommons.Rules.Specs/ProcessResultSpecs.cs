@@ -1,5 +1,5 @@
-using Machine.Specifications;
 using System.Linq;
+using Machine.Specifications;
 
 namespace NCommons.Rules.Specs
 {
@@ -18,5 +18,37 @@ namespace NCommons.Rules.Specs
 
         It should_be_retrievable_by_type =
             () => _result.ReturnItems.Where(i => i.Type.Equals(typeof (string))).ShouldNotBeEmpty();
+    }
+
+    public class when_adding_a_validation_failure
+    {
+        static ProcessResult _result;
+        static ProcessResult _value;
+
+        Establish context = () => { _result = new ProcessResult(); };
+
+        Because of = () => _value = _result.AddValidationFailure(new RuleValidationFailure("test", "test"));
+
+        It should_return_the_result = () => _value.ShouldEqual(_result);
+    }
+
+    public class when_adding_a_return_item
+    {
+        static ReturnValue _returnValue;
+        static ProcessResult _result;
+        static ProcessResult _value;
+
+        Establish context = () =>
+            {
+                _result = new ProcessResult();
+                _returnValue = new ReturnValue();
+            };
+
+        Because of = () => _value = _result.AddReturnItem(new ReturnValue());
+
+        It should_return_the_result = () => _value.ShouldEqual(_result);
+
+        It should_return_a_result_containing_the_return_item =
+            () => _value.ReturnItems.Where(x => x.Value.Equals(_returnValue));
     }
 }
