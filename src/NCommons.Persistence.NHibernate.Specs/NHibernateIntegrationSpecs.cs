@@ -146,5 +146,40 @@ namespace NCommons.Persistence.NHibernate.Specs
 
             It should_retrieve_the_expected_item = () => _results.SomeField.ShouldEqual(1);
         }
+
+        
+        [Tags("integration")]
+        [Subject("NHibernate Persistence")]
+        public class when_querying_by_linq : given_an_nhibernate_context
+        {
+            const int Id = 2;
+            static IDatabaseSession _databaseSession;
+            static TestEntity _entity;
+            static NHibernateRepository<TestEntity> _repository;
+            static TestEntity _results;
+            static TestEntity _testEntity;
+
+            Establish adendum_context = () =>
+                {
+                    _repository = new NHibernateRepository<TestEntity>(SessionFactory);
+                    _testEntity = new TestEntity {Description = "This is a test", SomeField = Id};
+
+                    // Use existing session for in memory database scenarios
+                    _databaseSession = DatabaseContext.GetCurrentSession() ?? DatabaseContext.OpenSession();
+                    _repository.Save(_testEntity);
+                };
+
+            Cleanup after = () =>
+                {
+                    SessionFactory.GetCurrentSession().Delete(_testEntity);
+                    _databaseSession.Commit();
+                    _databaseSession.Dispose();
+                    CurrentSessionContext.Unbind(SessionFactory);
+                };
+
+            Because of = () => _results = _repository.Query(q => q.Where(x => x.SomeField == Id)).Single();
+            
+            It should_retrieve_the_expected_item = () => _results.SomeField.ShouldEqual(Id);
+        }
     }
 }

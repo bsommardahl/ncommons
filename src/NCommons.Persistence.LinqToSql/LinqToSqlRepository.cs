@@ -10,7 +10,6 @@ namespace NCommons.Persistence.LinqToSql
     public class LinqToSqlRepository<T> : IRepository<T> where T : class
     {
         readonly IActiveSessionManager<IDataContext> _activeSessionManager;
-        readonly DataContext _dataContext;
 
         public LinqToSqlRepository(IActiveSessionManager<IDataContext> activeSessionManager)
         {
@@ -35,9 +34,14 @@ namespace NCommons.Persistence.LinqToSql
             return Query(new Specification<T>(specification));
         }
 
+        public IEnumerable<T> Query(Func<IQueryable<T>, IEnumerable<T>> query)
+        {
+            return query(_activeSessionManager.GetActiveSession().GetTable<T>());
+        }
+
         public IEnumerable<T> Query(ISpecification<T> specification)
         {
-            return _dataContext.GetTable<T>().Where(specification.Predicate);
+            return _activeSessionManager.GetActiveSession().GetTable<T>().Where(specification.Predicate);
         }
 
         public IEnumerable<T> GetAll()

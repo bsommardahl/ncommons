@@ -64,5 +64,11 @@ namespace NCommons.Persistence.NHibernate
         {
             return GetEnumerator();
         }
+
+        public IEnumerable<T> Query(Func<IQueryable<T>, IEnumerable<T>> query)
+        {
+            IQueryable<T> q = Session.Linq<T>();
+            return query(q);
+        }
     }  
 }

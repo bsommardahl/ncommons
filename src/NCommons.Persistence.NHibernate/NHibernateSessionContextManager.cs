@@ -9,14 +9,12 @@ namespace NCommons.Persistence.NHibernate
     /// </summary>
     public class NHibernateSessionContextManager : IActiveSessionManager<ISession>
     {
-        private readonly ISessionFactory _sessionFactory;
+        readonly ISessionFactory _sessionFactory;
 
         public NHibernateSessionContextManager(ISessionFactory sessionFactory)
         {
             _sessionFactory = sessionFactory;
         }
-
-        #region IActiveSessionManager<ISession> Members
 
         public bool HasActiveSession
         {
@@ -41,7 +39,5 @@ namespace NCommons.Persistence.NHibernate
                 CurrentSessionContext.Unbind(_sessionFactory);
             }
         }
-
-        #endregion
     }
 }
