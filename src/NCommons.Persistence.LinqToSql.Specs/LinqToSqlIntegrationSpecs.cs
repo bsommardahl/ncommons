@@ -138,7 +138,6 @@ namespace NCommons.Persistence.LinqToSql.Specs
         [Tags("integration")]
         public class when_querying_by_linq
         {
-            const int Id = 2;
             static LinqToSqlActiveSessionManager _activeSessionManager;
             static LinqToSqlDatabaseContext _databaseContext;
             static string _description;
@@ -158,7 +157,7 @@ namespace NCommons.Persistence.LinqToSql.Specs
             Establish context = () =>
                 {
                     _description = Guid.NewGuid().ToString();
-                    _entity = new Test {Id = Id, Description = _description};
+                    _entity = new Test {Description = _description};
 
                     _activeSessionManager = new LinqToSqlActiveSessionManager();
                     _repository = new LinqToSqlRepository<Test>(_activeSessionManager);
@@ -172,9 +171,9 @@ namespace NCommons.Persistence.LinqToSql.Specs
                     }
                 };
 
-            Because of = () => _results = _repository.Query(q => q.Where(x => x.Id == Id)).Single();
+            Because of = () => _results = _repository.Query(q => q.Where(x => x.Description == _description)).Single();
 
-            It should_retrieve_the_expected_item = () => _results.Id.ShouldEqual(Id);
+            It should_retrieve_the_expected_item = () => _results.Description.ShouldEqual(_description);
         }
     }
 }

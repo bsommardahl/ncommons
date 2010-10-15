@@ -29,13 +29,14 @@ namespace NCommons.Persistence.NHibernate
 
         public IEnumerable<T> Query(Expression<Func<T, bool>> specification)
         {
-            return Query(new Specification<T>(specification));
+            IQueryable<T> query = Session.Linq<T>();
+            return query.Where(specification);
         }
 
-        public IEnumerable<T> Query(ISpecification<T> specification)
+        public IEnumerable<T> Query(Func<IQueryable<T>, IEnumerable<T>> query)
         {
-            IQueryable<T> query = Session.Linq<T>();
-            return query.Where(specification.Predicate);
+            IQueryable<T> q = Session.Linq<T>();
+            return query(q);
         }
 
         public virtual IEnumerable<T> GetAll()
@@ -64,11 +65,5 @@ namespace NCommons.Persistence.NHibernate
         {
             return GetEnumerator();
         }
-
-        public IEnumerable<T> Query(Func<IQueryable<T>, IEnumerable<T>> query)
-        {
-            IQueryable<T> q = Session.Linq<T>();
-            return query(q);
-        }
-    }  
+    }
 }

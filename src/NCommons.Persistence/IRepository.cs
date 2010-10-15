@@ -8,7 +8,6 @@ namespace NCommons.Persistence
     public interface IRepository<T> : IEnumerable<T>
     {
         T Get<TId>(TId id);
-        IEnumerable<T> Query(ISpecification<T> specification);
         IEnumerable<T> Query(Expression<Func<T, bool>> specification);
         IEnumerable<T> Query(Func<IQueryable<T>, IEnumerable<T>> query);
         IEnumerable<T> GetAll();

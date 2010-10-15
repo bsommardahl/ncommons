@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Data.Linq;
 using System.Linq;
 using System.Linq.Expressions;
 
@@ -31,17 +30,12 @@ namespace NCommons.Persistence.LinqToSql
 
         public IEnumerable<T> Query(Expression<Func<T, bool>> specification)
         {
-            return Query(new Specification<T>(specification));
+            return _activeSessionManager.GetActiveSession().GetTable<T>().Where(specification);
         }
 
         public IEnumerable<T> Query(Func<IQueryable<T>, IEnumerable<T>> query)
         {
             return query(_activeSessionManager.GetActiveSession().GetTable<T>());
-        }
-
-        public IEnumerable<T> Query(ISpecification<T> specification)
-        {
-            return _activeSessionManager.GetActiveSession().GetTable<T>().Where(specification.Predicate);
         }
 
         public IEnumerable<T> GetAll()

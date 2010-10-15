@@ -94,9 +94,7 @@
     <Compile Include="IDatabaseSession.cs" />
     <Compile Include="IRepository.cs" />
     <Compile Include="ISessionContextManager.cs" />
-    <Compile Include="ISpecification.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Specification.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
