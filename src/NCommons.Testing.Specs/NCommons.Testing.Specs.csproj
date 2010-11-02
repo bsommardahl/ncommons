@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{DEB4AE59-2165-40DE-A2F3-20C42DFB6BD9}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>NCommons.Testing.Specs</RootNamespace>
+    <AssemblyName>NCommons.Testing.Specs</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoWarn>169</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Machine.Specifications">
+      <HintPath>..\..\lib\Machine.Specifications.dll</HintPath>
+    </Reference>
+    <Reference Include="Moq">
+      <HintPath>..\..\lib\Moq.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AsSpecs\when_fluently_casting_to_a_type.cs" />
+    <Compile Include="ExpectedObjectExtensionsSpecs\when_equating_expected_object_to_unequal_actual_object.cs" />
+    <Compile Include="ExpectedObjectSpecs\when_adding_custom_strategy.cs" />
+    <Compile Include="ExpectedObjectSpecs\when_comparing_an_object_to_equal_anomymous_type.cs" />
+    <Compile Include="ExpectedObjectSpecs\when_comparing_an_object_to_equal_complex_anomymous_type.cs" />
+    <Compile Include="ExpectedObjectSpecs\when_comparing_an_object_to_unequal_complex_anomymous_type.cs" />
+    <Compile Include="ExpectedObjectSpecs\when_comparing_equal_complex_types_with_writer.cs" />
+    <Compile Include="ExpectedObjectSpecs\when_comparing_equal_dictionaries_of_int_object.cs" />
+    <Compile Include="ExpectedObjectSpecs\when_comparing_equal_dictionaries_of_string_string.cs" />
+    <Compile Include="ExpectedObjectSpecs\when_comparing_equal_enums.cs" />
+    <Compile Include="ExpectedObjectSpecs\when_comparing_equal_objects_with_an_index.cs" />
+    <Compile Include="ExpectedObjectSpecs\when_comparing_equal_objects_with_ienumerable.cs" />
+    <Compile Include="ExpectedObjectSpecs\when_comparing_nulls.cs" />
+    <Compile Include="ExpectedObjectSpecs\when_comparing_unequal_dictionaries_of_int_object.cs" />
+    <Compile Include="ExpectedObjectSpecs\when_comparing_unequal_dictionaries_of_string_string.cs" />
+    <Compile Include="ExpectedObjectSpecs\when_comparing_unequal_dictionaries_of_string_string_with_different_count.cs" />
+    <Compile Include="ExpectedObjectSpecs\when_comparing_unequal_enums.cs" />
+    <Compile Include="ExpectedObjectSpecs\when_comparing_unequal_objects_with_ienumerable_with_different_count.cs" />
+    <Compile Include="ExpectedObjectSpecs\when_comparing_equal_objects_with_two_indexes.cs" />
+    <Compile Include="ExpectedObjectSpecs\when_comparing_unequal_objects_with_ienumerable.cs" />
+    <Compile Include="ExpectedObjectSpecs\when_comparing_unequal_objects_with_ienumerable_of_same_count.cs" />
+    <Compile Include="ExpectedObjectSpecs\when_comparing_unequal_objects_with_two_indexes.cs" />
+    <Compile Include="ExpectedObjectSpecs\when_comparing_unequal_object_with_string_configured_with_writer.cs" />
+    <Compile Include="ExpectedObjectSpecs\when_comparing_unequal_structures.cs" />
+    <Compile Include="ExpectedObjectSpecs\when_comparing_equal_objects_with_equals_overload.cs" />
+    <Compile Include="ExpectedObjectSpecs\when_comparing_equal_structures.cs" />
+    <Compile Include="ExpectedObjectSpecs\when_comparing_unequal_compariables.cs" />
+    <Compile Include="ExpectedObjectSpecs\when_comparing_unequal_objects_with_equals_overload.cs" />
+    <Compile Include="ExpectedObjectSpecs\when_comparing_equal_compariables.cs" />
+    <Compile Include="ExpectedObjectSpecs\when_comparing_unequal_objects_with_string.cs" />
+    <Compile Include="ShouldWriterSpecs\when_comparing_should_equal_for_unequal_indexes.cs" />
+    <Compile Include="ShouldWriterSpecs\when_comparing_should_equal_for_unequal_objects_with_ienumerable.cs" />
+    <Compile Include="ShouldExtensions\when_comparing_should_equal_for_unequal_objects_with_ienumerable_of_compex_type.cs" />
+    <Compile Include="ShouldWriterSpecs\when_comparing_should_equal_for_unequal_objects_with_index.cs" />
+    <Compile Include="ShouldWriterSpecs\when_retrieving_formatted_result_from_composite_comparision.cs" />
+    <Compile Include="ShouldWriterSpecs\when_retrieving_formatted_result_from_equal_comparision.cs" />
+    <Compile Include="TestTypes\ComparableType.cs" />
+    <Compile Include="TestTypes\ComplexType.cs" />
+    <Compile Include="TestTypes\EnumType.cs" />
+    <Compile Include="TestTypes\EqualsOverrideType.cs" />
+    <Compile Include="TestTypes\IndexType.cs" />
+    <Compile Include="TestTypes\MultiIndexType.cs" />
+    <Compile Include="TestTypes\TypeWithIndexType.cs" />
+    <Compile Include="TestTypes\TypeWithString.cs" />
+    <Compile Include="ExpectedObjectSpecs\when_comparing_unequal_objects_with_an_index.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ExpectedObjectSpecs\when_comparing_equal_objects_with_string.cs" />
+    <Compile Include="TestTypes\StructureType.cs" />
+    <Compile Include="TestTypes\TypeWithIEnumerable.cs" />
+    <Compile Include="TypeOfSpecs\when_retrieving_property.cs" />
+    <Compile Include="ShouldWriterSpecs\when_retrieving_formatted_result.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\NCommons.Testing\NCommons.Testing.csproj">
+      <Project>{FAAB2FCE-9604-4234-B20B-F583F4F07DE8}</Project>
+      <Name>NCommons.Testing</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

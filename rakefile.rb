@@ -10,7 +10,7 @@ task :default => ["build:all"]
 namespace :build do
 
         task :all => [:compile, :tests]
-        
+
         task :compile do
                 sh "#{MSBUILD_PATH}msbuild.exe /p:Configuration=#{CONFIG} /p:OutDir=#{BUILD_PATH}/ #{SOLUTION}"
 	end
