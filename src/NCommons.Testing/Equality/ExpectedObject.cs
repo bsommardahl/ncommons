@@ -4,7 +4,7 @@ namespace NCommons.Testing.Equality
 {
     public class ExpectedObject
     {
-        readonly ConfigurationContext _configurationContext = new ConfigurationContext();
+        readonly IConfigurationContext _configurationContext = new ConfigurationContext();
         readonly object _expected;
 
         public ExpectedObject(object expected)
@@ -14,7 +14,7 @@ namespace NCommons.Testing.Equality
 
         public override bool Equals(object actual)
         {
-            return new EqualityComparer(_configurationContext).AreEqual(_expected, actual);
+            return new EqualityComparer((IConfiguredContext)_configurationContext).AreEqual(_expected, actual);
         }
 
         public bool Equals(ExpectedObject other)
@@ -41,7 +41,7 @@ namespace NCommons.Testing.Equality
             return !Equals(left, right);
         }
 
-        public ExpectedObject Configure(Action<ConfigurationContext> configuration)
+        public ExpectedObject Configure(Action<IConfigurationContext> configuration)
         {
             configuration(_configurationContext);
             return this;

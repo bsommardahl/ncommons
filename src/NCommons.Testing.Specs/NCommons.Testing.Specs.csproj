@@ -49,6 +49,8 @@
   <ItemGroup>
     <Compile Include="AsSpecs\when_fluently_casting_to_a_type.cs" />
     <Compile Include="ExpectedObjectExtensionsSpecs\when_equating_expected_object_to_unequal_actual_object.cs" />
+    <Compile Include="ExpectedObjectSpecs\when_comparing_objects_of_different_types_with_different_members.cs" />
+    <Compile Include="ExpectedObjectSpecs\when_comparing_equal_objects_of_different_types_ignoring_types.cs" />
     <Compile Include="ExpectedObjectSpecs\when_adding_custom_strategy.cs" />
     <Compile Include="ExpectedObjectSpecs\when_comparing_an_object_to_equal_anomymous_type.cs" />
     <Compile Include="ExpectedObjectSpecs\when_comparing_an_object_to_equal_complex_anomymous_type.cs" />
@@ -77,12 +79,16 @@
     <Compile Include="ExpectedObjectSpecs\when_comparing_unequal_objects_with_equals_overload.cs" />
     <Compile Include="ExpectedObjectSpecs\when_comparing_equal_compariables.cs" />
     <Compile Include="ExpectedObjectSpecs\when_comparing_unequal_objects_with_string.cs" />
-    <Compile Include="ShouldWriterSpecs\when_comparing_should_equal_for_unequal_indexes.cs" />
-    <Compile Include="ShouldWriterSpecs\when_comparing_should_equal_for_unequal_objects_with_ienumerable.cs" />
+    <Compile Include="ShouldExtensions\when_comparing_should_equal_for_nulls.cs" />
+    <Compile Include="ShouldExtensions\when_comparing_should_equal_for_objects_of_different_types.cs" />
+    <Compile Include="ShouldExtensions\when_comparing_should_equal_for_objects_of_different_types_with_different_members.cs" />
+    <Compile Include="ShouldExtensions\when_comparing_should_equal_for_unequal_indexes.cs" />
+    <Compile Include="ShouldExtensions\when_comparing_should_equal_for_unequal_objects_with_ienumerable.cs" />
     <Compile Include="ShouldExtensions\when_comparing_should_equal_for_unequal_objects_with_ienumerable_of_compex_type.cs" />
-    <Compile Include="ShouldWriterSpecs\when_comparing_should_equal_for_unequal_objects_with_index.cs" />
+    <Compile Include="ShouldExtensions\when_comparing_should_equal_for_unequal_objects_with_index.cs" />
     <Compile Include="ShouldWriterSpecs\when_retrieving_formatted_result_from_composite_comparision.cs" />
     <Compile Include="ShouldWriterSpecs\when_retrieving_formatted_result_from_equal_comparision.cs" />
+    <Compile Include="ShouldWriterSpecs\when_retrieving_formatted_result_from_unequal_comparision.cs" />
     <Compile Include="TestTypes\ComparableType.cs" />
     <Compile Include="TestTypes\ComplexType.cs" />
     <Compile Include="TestTypes\EnumType.cs" />
@@ -96,8 +102,8 @@
     <Compile Include="ExpectedObjectSpecs\when_comparing_equal_objects_with_string.cs" />
     <Compile Include="TestTypes\StructureType.cs" />
     <Compile Include="TestTypes\TypeWithIEnumerable.cs" />
+    <Compile Include="TestTypes\TypeWithString2.cs" />
     <Compile Include="TypeOfSpecs\when_retrieving_property.cs" />
-    <Compile Include="ShouldWriterSpecs\when_retrieving_formatted_result.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NCommons.Testing\NCommons.Testing.csproj">

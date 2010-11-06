@@ -16,7 +16,6 @@ namespace NCommons.Persistence.LinqToSql.Specs
             static string _description;
             static Test _entity;
             static LinqToSqlRepository<Test> _repository;
-            static IDatabaseSession _session;
 
             Cleanup after = () =>
                 {
@@ -60,9 +59,7 @@ namespace NCommons.Persistence.LinqToSql.Specs
         [Subject("LinqToSql Persistence")]
         public class when_session_not_commited : given_a_linq_context
         {
-            static IDatabaseSession _databaseSession;
             static Test _entity;
-            static Exception _exception;
             static LinqToSqlRepository<Test> _repository;
             static Test _testEntity;
 

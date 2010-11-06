@@ -44,10 +44,9 @@ namespace NCommons.Persistence.NHibernate.Specs
         public class when_adapter_is_instantiated
         {
             static SessionContextManagerAdapter _adaptor;
+            
             Establish context = () => { _adaptor = new SessionContextManagerAdapter(null); };
-
-            Because of;
-
+            
             It should_derive_from_CurrentSessionContext = () =>
                                                           (typeof (CurrentSessionContext).IsAssignableFrom(
                                                               typeof (SessionContextManagerAdapter))).ShouldBeTrue();

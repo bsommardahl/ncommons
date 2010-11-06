@@ -36,10 +36,10 @@ namespace NCommons.Testing.Specs.ExpectedObjectExtensionsSpecs
 
         It should_throw_exception_with_error_for_StringProperty =
             () =>
-            _exception.Message.ShouldContain("For StringProperty, expected \"test string\" but found \"test string1\".");
+            _exception.Message.ShouldContain("For ComplexType.StringProperty, expected \"test string\" but found \"test string1\".");
 
         It should_throw_exception_with_error_for_TypeWithString_StringProperty =
             () =>
-            _exception.Message.ShouldContain("For TypeWithString.StringProperty, expected \"inner test string\" but found \"inner test string2\".");
+            _exception.Message.ShouldContain("For ComplexType.TypeWithString.StringProperty, expected \"inner test string\" but found \"inner test string2\".");
     }
 }

@@ -26,7 +26,7 @@ namespace NCommons.Testing.Equality
                 PropertyInfo actualPropertyInfo =
                     actualPropertyInfos.Where(p => p.Name.Equals(pi.Name)).SingleOrDefault();
                 ParameterInfo[] indexes = pi.GetIndexParameters();
-
+                
                 if (indexes.Length == 0)
                 {
                     areEqual = CompareStandardProperty(pi, actualPropertyInfo, expected, actual, equalityComparer) &&
@@ -89,8 +89,15 @@ namespace NCommons.Testing.Equality
                                      EqualityComparer equalityComparer)
         {
             object value1 = pi1.GetValue(expected, null);
-            object value2 = pi2.GetValue(actual, null);
 
+            if (pi2 == null)
+            {
+                return equalityComparer
+                    .AreEqual(value1, Activator.CreateInstance(typeof(MissingMember<>)
+                    .MakeGenericType(pi1.PropertyType)), pi1.Name);
+            }
+            
+            object value2 = pi2.GetValue(actual, null);
             return equalityComparer.AreEqual(value1, value2, pi1.Name);
         }
     }

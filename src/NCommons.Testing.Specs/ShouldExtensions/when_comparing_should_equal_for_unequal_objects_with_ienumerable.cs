@@ -4,15 +4,13 @@ using Machine.Specifications;
 using NCommons.Testing.Equality;
 using NCommons.Testing.Specs.TestTypes;
 
-namespace NCommons.Testing.Specs.ShouldWriterSpecs
+namespace NCommons.Testing.Specs.ShouldExtensions
 {
     public class when_comparing_should_equal_for_unequal_objects_with_ienumerable
     {
         static TypeWithIEnumerable _actual;
         static Exception _exception;
         static TypeWithIEnumerable _expected;
-
-        static bool _result;
 
         Establish context = () =>
             {
@@ -25,7 +23,7 @@ namespace NCommons.Testing.Specs.ShouldWriterSpecs
         It should_throw_exception_with_subscripted_values =
             () =>
             _exception.Message.ShouldEqual(
-                string.Format("For Objects[0], expected \"test1\" but found \"test3\".{0}" +
-                              "For Objects[1], expected \"test2\" but found \"test4\".{0}", Environment.NewLine));
+                string.Format("For TypeWithIEnumerable.Objects[0], expected \"test1\" but found \"test3\".{0}" +
+                              "For TypeWithIEnumerable.Objects[1], expected \"test2\" but found \"test4\".{0}", Environment.NewLine));
     }
 }

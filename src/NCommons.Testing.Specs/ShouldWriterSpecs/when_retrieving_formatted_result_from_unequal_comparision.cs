@@ -1,4 +1,4 @@
-using Machine.Specifications;
+﻿using Machine.Specifications;
 using NCommons.Testing.Equality;
 
 namespace NCommons.Testing.Specs.ShouldWriterSpecs

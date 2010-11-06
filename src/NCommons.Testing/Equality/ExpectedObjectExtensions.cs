@@ -12,7 +12,12 @@
             return expectedObject.Configure(AddDefaultStrategies);
         }
 
-        static void AddDefaultStrategies(ConfigurationContext context)
+        public static ExpectedObject IgnoreTypes(this ExpectedObject expectedObject)
+        {
+            return expectedObject.Configure(ctx => ctx.IgnoreTypes());
+        }
+
+        static void AddDefaultStrategies(IConfigurationContext context)
         {
             context.AddStrategy<ComparableComparisonStrategy>();
             context.AddStrategy<PrimitiveComparisonStrategy>();

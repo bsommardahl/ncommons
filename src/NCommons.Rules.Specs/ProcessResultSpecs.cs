@@ -14,8 +14,6 @@ namespace NCommons.Rules.Specs
                 _result.AddReturnItem(new ReturnValue().SetValue("string"));
             };
 
-        Because of;
-
         It should_be_retrievable_by_type =
             () => _result.ReturnItems.Where(i => i.Type.Equals(typeof (string))).ShouldNotBeEmpty();
     }

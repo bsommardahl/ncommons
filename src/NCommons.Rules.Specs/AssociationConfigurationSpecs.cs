@@ -8,7 +8,6 @@ namespace NCommons.Rules.Specs
     [Subject(typeof (AssociationConfiguration<TestMessage>))]
     public class when_configured_to_assocate_with_another_message
     {
-        static Type _associatedType;
         static MockAssociationConfiguration _configuration;
 
         Establish context = () => { _configuration = new MockAssociationConfiguration(); };

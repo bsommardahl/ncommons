@@ -11,8 +11,7 @@ namespace NCommons.Testing.Equality
         public static void ShouldEqual<T>(this ExpectedObject expected, T actual)
         {
             IWriter writer = new ShouldWriter();
-            expected
-                .Configure(ctx => ctx.Writer = writer);
+            expected.Configure(ctx => ctx.WithWriter(writer));
             expected.Equals(actual);
             string results = writer.GetFormattedResults();
 

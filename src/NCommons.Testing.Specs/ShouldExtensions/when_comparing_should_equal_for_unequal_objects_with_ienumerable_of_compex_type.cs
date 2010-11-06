@@ -9,10 +9,7 @@ namespace NCommons.Testing.Specs.ShouldExtensions
     public class when_comparing_should_equal_for_unequal_objects_with_ienumerable_of_compex_type
     {
         static TypeWithIEnumerable _actual;
-        static Exception _exception;
         static TypeWithIEnumerable _expected;
-
-        static bool _result;
 
         Establish context = () =>
             {

@@ -5,7 +5,6 @@ namespace NCommons.Testing.Specs.ShouldWriterSpecs
 {
     public class when_retrieving_formatted_result_from_composite_comparision
     {
-        static EqualityResult _result;
         static string _results;
         static IWriter _writer;
 

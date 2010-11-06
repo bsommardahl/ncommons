@@ -25,7 +25,6 @@ namespace NCommons.Rules.Specs
                 _destinationMessage = new TestMessage();
 
                 // mapper
-
                 MockMessageMapper.Setup(m => m.Map(_message, typeof (TestMessage), typeof (TestMessage)))
                     .Returns(() => _destinationMessage);
 

@@ -1,22 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace NCommons.Testing.Equality
 {
-    public class ConfigurationContext
+    public class ConfigurationContext : IConfigurationContext, IConfiguredContext
     {
         readonly List<IComparisonStrategy> _strategies = new List<IComparisonStrategy>();
+        bool _ignoreTypes;
         IWriter _writer = NullWriter.Instance;
 
-        public List<IComparisonStrategy> Strategies
+        public void WithWriter(IWriter writer)
         {
-            get { return _strategies; }
+            _writer = writer;
         }
 
-        public IWriter Writer
+        void IConfigurationContext.IgnoreTypes()
         {
-            get { return _writer; }
-            set { _writer = value; }
+            _ignoreTypes = true;
         }
 
         public void AddStrategy<T>() where T : IComparisonStrategy, new()
@@ -27,6 +26,21 @@ namespace NCommons.Testing.Equality
         public void AddStrategy(IComparisonStrategy comparisonStrategy)
         {
             Strategies.Add(comparisonStrategy);
+        }
+
+        public List<IComparisonStrategy> Strategies
+        {
+            get { return _strategies; }
+        }
+
+        public IWriter Writer
+        {
+            get { return _writer; }
+        }
+
+        bool IConfiguredContext.IgnoreTypes
+        {
+            get { return _ignoreTypes; }
         }
     }
 }

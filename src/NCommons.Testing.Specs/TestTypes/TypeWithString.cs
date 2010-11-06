@@ -4,4 +4,9 @@ namespace NCommons.Testing.Specs.TestTypes
     {
         public string StringProperty { get; set; }
     }
+
+    public class TypeWithDecimal
+    {
+        public decimal DecimalProperty { get; set; }
+    }
 }

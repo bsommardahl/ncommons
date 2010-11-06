@@ -22,11 +22,27 @@ namespace NCommons.Testing.Equality
                 .Where(IsLeaf)
                 .ToList()
                 .ForEach(x =>
-                         sb.Append(string.Format("For {0}, expected {1} but found {2}.{3}",
-                                                 x.Member,
+                    {
+                        if (x.Actual is IMissingMember)
+                        {
+                            sb.Append(string.Format("For {0}, expected {1} but member was missing.{2}",
+                                                 (!string.IsNullOrEmpty(x.Member)
+                                                      ? x.Member
+                                                      : ((string)null).ToUsefulString()),
                                                  x.Expected.ToUsefulString(),
-                                                 x.Actual.ToUsefulString(),
-                                                 Environment.NewLine)));
+                                                 Environment.NewLine));
+                        }
+                        else
+                        {
+                            sb.Append(string.Format("For {0}, expected {1} but found {2}.{3}",
+                                                    (!string.IsNullOrEmpty(x.Member)
+                                                         ? x.Member
+                                                         : ((string) null).ToUsefulString()),
+                                                    x.Expected.ToUsefulString(),
+                                                    x.Actual.ToUsefulString(),
+                                                    Environment.NewLine));
+                        }
+                    });
             return sb.ToString();
         }
 

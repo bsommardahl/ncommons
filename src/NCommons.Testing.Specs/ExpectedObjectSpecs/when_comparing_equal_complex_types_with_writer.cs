@@ -29,7 +29,7 @@ namespace NCommons.Testing.Specs.ExpectedObjectSpecs
                                                                       Level3 = "test"
                                                                   }
                                                  }
-                                }.ToExpectedObject().Configure(ctx => ctx.Writer = _mockWriter.Object);
+                                }.ToExpectedObject().Configure(ctx => ctx.WithWriter(_mockWriter.Object));
 
                 _actual = new
                               {
@@ -47,7 +47,7 @@ namespace NCommons.Testing.Specs.ExpectedObjectSpecs
 
         It should_write_the_full_accumulated_path_for_the_unqual_member =
             () =>
-            (_results.Where(r => r.Member.Equals("Level1.Level2.Level3")).Select(r => r.Member)).SingleOrDefault().
+            (_results.Where(r => r.Member.Contains("Level1.Level2.Level3")).Select(r => r.Member)).SingleOrDefault().
                 ShouldNotBeNull();
     }
 }

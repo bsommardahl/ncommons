@@ -28,7 +28,7 @@ namespace NCommons.Testing.Specs.ExpectedObjectSpecs
                     {
                         ctx.AddStrategy<ComparableComparisonStrategy>();
                         ctx.AddStrategy<ClassComparisonStrategy>();
-                        ctx.Writer = _mockWriter.Object;
+                        ctx.WithWriter(_mockWriter.Object);
                     });
 
                 _actual = new TypeWithString {StringProperty = "error"};

@@ -45,9 +45,7 @@ namespace NCommons.Persistence.NHibernate.Specs
         [Subject("NHibernate Persistence")]
         public class when_session_not_commited : given_an_nhibernate_context
         {
-            static IDatabaseSession _databaseSession;
             static TestEntity _entity;
-            static Exception _exception;
             static NHibernateRepository<TestEntity> _repository;
             static TestEntity _testEntity;
 
@@ -79,7 +77,6 @@ namespace NCommons.Persistence.NHibernate.Specs
         {
             const int _id = 1;
             static IDatabaseSession _databaseSession;
-            static TestEntity _entity;
             static NHibernateRepository<TestEntity> _repository;
             static TestEntity _results;
             static TestEntity _testEntity;
@@ -114,7 +111,6 @@ namespace NCommons.Persistence.NHibernate.Specs
         {
             const int Id = 2;
             static IDatabaseSession _databaseSession;
-            static TestEntity _entity;
             static NHibernateRepository<TestEntity> _repository;
             static TestEntity _results;
             static TestEntity _testEntity;

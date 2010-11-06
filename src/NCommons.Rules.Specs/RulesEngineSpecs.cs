@@ -34,8 +34,6 @@ namespace NCommons.Rules.Specs
 
         Because of = () => _processResults = RulesEngine.Process(_message);
 
-        Behaves_like<RulesEngineBehavior> rules_engine;
-
         It should_be_successful = () => _processResults.Successful.ShouldBeTrue();
 
         It should_execute_the_command = () => _mockCommand.Verify(c => c.Execute(_message));

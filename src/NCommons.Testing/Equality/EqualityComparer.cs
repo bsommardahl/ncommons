@@ -7,17 +7,17 @@ namespace NCommons.Testing.Equality
 {
     public class EqualityComparer
     {
-        readonly ConfigurationContext _configurationContext;
+        readonly IConfiguredContext _configurationContext;
         readonly Stack<string> _stack = new Stack<string>();
 
-        public EqualityComparer(ConfigurationContext configurationContext)
+        public EqualityComparer(IConfiguredContext configurationContext)
         {
             _configurationContext = configurationContext;
         }
 
         public bool AreEqual(object expected, object actual)
         {
-            return AreEqual(expected, actual, String.Empty);
+            return AreEqual(expected, actual, (actual != null) ? actual.GetType().Name : string.Empty);
         }
 
         internal bool AreEqual(object expected, object actual, string member)
@@ -25,9 +25,7 @@ namespace NCommons.Testing.Equality
             try
             {
                 bool areEqual = true;
-
-                if (!string.IsNullOrEmpty(member))
-                    _stack.Push(member);
+                _stack.Push(member);
 
                 if (ReferenceEquals(expected, actual))
                 {
@@ -40,6 +38,20 @@ namespace NCommons.Testing.Equality
                 }
 
                 if (expected == null || actual == null)
+                {
+                    _configurationContext.Writer.Write(new EqualityResult(false, GetMemberPath(), expected, actual));
+                    return false;
+                }
+
+                if (_configurationContext.IgnoreTypes)
+                {
+                    if (actual.GetType() == typeof (MissingMember<>).MakeGenericType(expected.GetType()))
+                    {
+                        _configurationContext.Writer.Write(new EqualityResult(false, GetMemberPath(), expected, actual));
+                        return false;
+                    }
+                }
+                else if (!_configurationContext.IgnoreTypes && !expected.GetType().IsAssignableFrom(actual.GetType()))
                 {
                     _configurationContext.Writer.Write(new EqualityResult(false, GetMemberPath(), expected, actual));
                     return false;

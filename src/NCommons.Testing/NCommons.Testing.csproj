@@ -36,7 +36,6 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
@@ -44,7 +43,9 @@
     <Compile Include="Equality\EqualityComparer.cs" />
     <Compile Include="Equality\EqualityResult.cs" />
     <Compile Include="Equality\IComparisonStrategy.cs" />
+    <Compile Include="Equality\IConfigurationContext.cs" />
     <Compile Include="Equality\IWriter.cs" />
+    <Compile Include="Equality\MissingMember.cs" />
     <Compile Include="Equality\NullWriter.cs" />
     <Compile Include="Equality\ShouldExtensions.cs" />
     <Compile Include="Equality\ShouldWriter.cs" />

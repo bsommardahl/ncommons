@@ -6,7 +6,6 @@ namespace NCommons.Logging.Specs
     [Subject(typeof (LogWriterMap<TraceEventType>))]
     public class when_mapping_a_log_entry
     {
-        static bool _delegateCalled;
         static LogEntry _logEntry;
         static LogWriterMapSpy _logWriterMapSpy;
 

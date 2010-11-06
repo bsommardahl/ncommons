@@ -14,7 +14,7 @@ namespace NCommons.Testing.Specs.ExpectedObjectSpecs
 
         Establish context = () =>
             {
-                _expected = new {StringProperty = "test string"}.ToExpectedObject();
+                _expected = new {StringProperty = "test string"}.ToExpectedObject().IgnoreTypes();
 
                 _actual = new ComplexType
                               {

@@ -18,8 +18,8 @@ namespace NCommons.Testing.Specs.ExpectedObjectSpecs
                                 {
                                     StringProperty = "test string",
                                     DecimalProperty = 10.10m,
-                                    IndexType = new IndexType<int>(new List<int> { 1, 2, 3, 4, 5 })
-                                }.ToExpectedObject();
+                                    IndexType = new IndexType<int>(new List<int> {1, 2, 3, 4, 5})
+                                };
 
                 _actual = new ComplexType
                               {
@@ -29,7 +29,7 @@ namespace NCommons.Testing.Specs.ExpectedObjectSpecs
                               };
             };
 
-        Because of = () => _result = _expected.ToExpectedObject().Equals(_actual);
+        Because of = () => _result = _expected.ToExpectedObject().IgnoreTypes().Equals(_actual);
 
         It should_be_equal = () => _result.ShouldBeTrue();
     }

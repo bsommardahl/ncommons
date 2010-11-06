@@ -4,15 +4,13 @@ using Machine.Specifications;
 using NCommons.Testing.Equality;
 using NCommons.Testing.Specs.TestTypes;
 
-namespace NCommons.Testing.Specs.ShouldWriterSpecs
+namespace NCommons.Testing.Specs.ShouldExtensions
 {
     public class when_comparing_should_equal_for_unequal_indexes
     {
         static IndexType<int> _actual;
         static Exception _exception;
         static IndexType<int> _expected;
-
-        static bool _result;
 
         Establish context = () =>
             {
@@ -25,6 +23,6 @@ namespace NCommons.Testing.Specs.ShouldWriterSpecs
         It should_throw_exception_with_subscripted_values =
             () =>
             _exception.Message.ShouldEqual(
-                string.Format("For Item[4], expected [5] but found [6].{0}", Environment.NewLine));
+                string.Format("For IndexType`1.Item[4], expected [5] but found [6].{0}", Environment.NewLine));
     }
 }
