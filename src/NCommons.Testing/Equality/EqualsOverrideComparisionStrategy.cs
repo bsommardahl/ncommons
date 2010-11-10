@@ -23,7 +23,7 @@ namespace NCommons.Testing.Equality
         }
 
 
-        public bool AreEqual(object expected, object actual, EqualityComparer equalityComparer)
+        public bool AreEqual(object expected, object actual, IComparisonContext comparisonContext)
         {
             return expected.Equals(actual);
         }

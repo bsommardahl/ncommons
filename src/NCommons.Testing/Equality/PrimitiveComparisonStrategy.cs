@@ -9,7 +9,7 @@ namespace NCommons.Testing.Equality
             return type.IsPrimitive;
         }
 
-        public bool AreEqual(object expected, object actual, EqualityComparer equalityComparer)
+        public bool AreEqual(object expected, object actual, IComparisonContext comparisonContext)
         {
             return expected.Equals(actual);
         }

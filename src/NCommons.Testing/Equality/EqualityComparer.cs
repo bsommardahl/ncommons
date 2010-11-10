@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 
 namespace NCommons.Testing.Equality
 {
-    public class EqualityComparer
+    public class EqualityComparer : IComparisonContext
     {
         readonly IConfiguredContext _configurationContext;
         readonly Stack<string> _stack = new Stack<string>();
@@ -20,7 +21,7 @@ namespace NCommons.Testing.Equality
             return AreEqual(expected, actual, (actual != null) ? actual.GetType().Name : string.Empty);
         }
 
-        internal bool AreEqual(object expected, object actual, string member)
+        public bool AreEqual(object expected, object actual, string member)
         {
             try
             {
@@ -68,7 +69,7 @@ namespace NCommons.Testing.Equality
                             if (_stack.Count > 0)
                             {
                                 _configurationContext.Writer
-                                    .Write(new EqualityResult(isEqual, GetMemberPath(), expected, actual));
+                                    .Write(new EqualityResult(false, GetMemberPath(), expected, actual));
                             }
                             areEqual = false;
                         }
@@ -84,6 +85,22 @@ namespace NCommons.Testing.Equality
                 if (_stack.Count > 0)
                     _stack.Pop();
             }
+        }
+
+        public bool CompareProperties(object expected, object actual, Func<PropertyInfo, PropertyInfo, bool> propertyComparison)
+        {
+            PropertyInfo[] expectedPropertyInfos = expected.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance);
+            PropertyInfo[] actualPropertyInfos = actual.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance);
+            bool areEqual = true;
+            expectedPropertyInfos.ToList().ForEach(pi =>
+                {
+
+                    areEqual = propertyComparison(pi,
+                                                  actualPropertyInfos.Where(p => p.Name.Equals(pi.Name)).SingleOrDefault
+                                                      ()) & areEqual;
+                });
+
+            return areEqual;
         }
 
         string GetMemberPath()

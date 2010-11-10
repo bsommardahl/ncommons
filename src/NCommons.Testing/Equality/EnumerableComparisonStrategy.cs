@@ -10,7 +10,7 @@ namespace NCommons.Testing.Equality
             return (typeof (IEnumerable).IsAssignableFrom(type));
         }
 
-        public bool AreEqual(object expected, object actual, EqualityComparer equalityComparer)
+        public bool AreEqual(object expected, object actual, IComparisonContext comparisonContext)
         {
             bool areEqual = true;
             var expectedEnumerable = (IEnumerable) expected;
@@ -24,7 +24,7 @@ namespace NCommons.Testing.Equality
 
             while (expectedHasValue && actualHasValue)
             {
-                areEqual = equalityComparer.AreEqual(expectedEnumerator.Current, actualEnumerator.Current, "[" + yield++ + "]") && areEqual;
+                areEqual = comparisonContext.AreEqual(expectedEnumerator.Current, actualEnumerator.Current, "[" + yield++ + "]") && areEqual;
                 
                 expectedHasValue = expectedEnumerator.MoveNext();
                 actualHasValue = actualEnumerator.MoveNext();

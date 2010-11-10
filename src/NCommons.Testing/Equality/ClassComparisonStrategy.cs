@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Reflection;
 
 namespace NCommons.Testing.Equality
@@ -11,38 +10,37 @@ namespace NCommons.Testing.Equality
             return (type.IsClass && !type.IsArray);
         }
 
-        public bool AreEqual(object expected, object actual, EqualityComparer equalityComparer)
+        public bool AreEqual(object expected, object actual, IComparisonContext comparisonContext)
         {
-            bool areEqual = true;
+            const bool equal = true;
+            bool areEqual = comparisonContext.CompareProperties(expected, actual,
+                                                                (pi, actualPropertyInfo) =>
+                                                                CompareProperty(pi, actualPropertyInfo, expected, actual,
+                                                                                comparisonContext, equal));
 
-            PropertyInfo[] expectedPropertyInfos =
-                expected.GetType().GetProperties(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
+            return areEqual;
+        }
 
-            PropertyInfo[] actualPropertyInfos =
-                actual.GetType().GetProperties(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
+        static bool CompareProperty(PropertyInfo pi, PropertyInfo actualPropertyInfo, object expected, object actual,
+                             IComparisonContext comparisonContext, bool areEqual)
+        {
+            ParameterInfo[] indexes = pi.GetIndexParameters();
 
-            foreach (PropertyInfo pi in expectedPropertyInfos)
+            if (indexes.Length == 0)
             {
-                PropertyInfo actualPropertyInfo =
-                    actualPropertyInfos.Where(p => p.Name.Equals(pi.Name)).SingleOrDefault();
-                ParameterInfo[] indexes = pi.GetIndexParameters();
-                
-                if (indexes.Length == 0)
-                {
-                    areEqual = CompareStandardProperty(pi, actualPropertyInfo, expected, actual, equalityComparer) &&
-                               areEqual;
-                }
-                else
-                {
-                    areEqual = CompareIndexedProperty(pi, expected, actual, indexes, equalityComparer) && areEqual;
-                }
+                areEqual = CompareStandardProperty(pi, actualPropertyInfo, expected, actual, comparisonContext) &&
+                           areEqual;
+            }
+            else
+            {
+                areEqual = CompareIndexedProperty(pi, expected, actual, indexes, comparisonContext) && areEqual;
             }
 
             return areEqual;
         }
 
-        bool CompareIndexedProperty(PropertyInfo pi, object expected, object actual, ParameterInfo[] indexes,
-                                    EqualityComparer equalityComparer)
+        static bool CompareIndexedProperty(PropertyInfo pi, object expected, object actual, ParameterInfo[] indexes,
+                                           IComparisonContext comparisonContext)
         {
             bool areEqual = true;
 
@@ -50,16 +48,14 @@ namespace NCommons.Testing.Equality
             {
                 if (index.ParameterType == typeof (int))
                 {
-                    int expectedCount = 0;
                     PropertyInfo expectedCountPropertyInfo = expected.GetType().GetProperty("Count");
 
-                    int actualCount = 0;
                     PropertyInfo actualCountPropertyInfo = actual.GetType().GetProperty("Count");
 
                     if (expectedCountPropertyInfo != null)
                     {
-                        expectedCount = (int) expectedCountPropertyInfo.GetValue(expected, null);
-                        actualCount = (int) actualCountPropertyInfo.GetValue(actual, null);
+                        var expectedCount = (int) expectedCountPropertyInfo.GetValue(expected, null);
+                        var actualCount = (int) actualCountPropertyInfo.GetValue(actual, null);
 
                         if (expectedCount != actualCount)
                         {
@@ -73,7 +69,7 @@ namespace NCommons.Testing.Equality
                             object value1 = pi.GetValue(expected, indexValues);
                             object value2 = pi.GetValue(actual, indexValues);
 
-                            if (!equalityComparer.AreEqual(value1, value2, pi.Name + "[" + i + "]"))
+                            if (!comparisonContext.AreEqual(value1, value2, pi.Name + "[" + i + "]"))
                             {
                                 areEqual = false;
                             }
@@ -85,20 +81,20 @@ namespace NCommons.Testing.Equality
             return areEqual;
         }
 
-        bool CompareStandardProperty(PropertyInfo pi1, PropertyInfo pi2, object expected, object actual,
-                                     EqualityComparer equalityComparer)
+        static bool CompareStandardProperty(PropertyInfo pi1, PropertyInfo pi2, object expected, object actual,
+                                            IComparisonContext comparisonContext)
         {
             object value1 = pi1.GetValue(expected, null);
 
             if (pi2 == null)
             {
-                return equalityComparer
-                    .AreEqual(value1, Activator.CreateInstance(typeof(MissingMember<>)
-                    .MakeGenericType(pi1.PropertyType)), pi1.Name);
+                return comparisonContext
+                    .AreEqual(value1, Activator.CreateInstance(typeof (MissingMember<>)
+                                                                   .MakeGenericType(pi1.PropertyType)), pi1.Name);
             }
-            
+
             object value2 = pi2.GetValue(actual, null);
-            return equalityComparer.AreEqual(value1, value2, pi1.Name);
+            return comparisonContext.AreEqual(value1, value2, pi1.Name);
         }
     }
 }

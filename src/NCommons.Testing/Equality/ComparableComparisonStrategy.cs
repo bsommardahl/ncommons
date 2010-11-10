@@ -9,7 +9,7 @@ namespace NCommons.Testing.Equality
             return (typeof (IComparable).IsAssignableFrom(type));
         }
 
-        public bool AreEqual(object expected, object actual, EqualityComparer equalityComparer)
+        public bool AreEqual(object expected, object actual, IComparisonContext comparisonContext)
         {
             return (((IComparable) expected).CompareTo(actual) == 0);
         }
