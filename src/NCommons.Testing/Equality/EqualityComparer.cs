@@ -16,11 +16,6 @@ namespace NCommons.Testing.Equality
             _configurationContext = configurationContext;
         }
 
-        public bool AreEqual(object expected, object actual)
-        {
-            return AreEqual(expected, actual, (actual != null) ? actual.GetType().Name : string.Empty);
-        }
-
         public bool AreEqual(object expected, object actual, string member)
         {
             try
@@ -87,20 +82,26 @@ namespace NCommons.Testing.Equality
             }
         }
 
-        public bool CompareProperties(object expected, object actual, Func<PropertyInfo, PropertyInfo, bool> propertyComparison)
+        public bool CompareProperties(object expected, object actual,
+                                      Func<PropertyInfo, PropertyInfo, bool> propertyComparison)
         {
-            PropertyInfo[] expectedPropertyInfos = expected.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance);
-            PropertyInfo[] actualPropertyInfos = actual.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance);
+            const BindingFlags flags = BindingFlags.Public | BindingFlags.Instance;
+            PropertyInfo[] expectedPropertyInfos = expected.GetType().GetProperties(flags);
+            PropertyInfo[] actualPropertyInfos = actual.GetType().GetProperties(flags);
             bool areEqual = true;
             expectedPropertyInfos.ToList().ForEach(pi =>
                 {
-
                     areEqual = propertyComparison(pi,
                                                   actualPropertyInfos.Where(p => p.Name.Equals(pi.Name)).SingleOrDefault
                                                       ()) & areEqual;
                 });
 
             return areEqual;
+        }
+
+        public bool AreEqual(object expected, object actual)
+        {
+            return AreEqual(expected, actual, (actual != null) ? actual.GetType().Name : string.Empty);
         }
 
         string GetMemberPath()
