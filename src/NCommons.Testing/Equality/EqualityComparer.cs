@@ -99,6 +99,22 @@ namespace NCommons.Testing.Equality
             return areEqual;
         }
 
+        public bool CompareFields(object expected, object actual, Func<FieldInfo, FieldInfo, bool> comparison)
+        {
+            var flags = _configurationContext.GetFieldBindingFlags();
+            FieldInfo[] expectedFieldInfos = expected.GetType().GetFields(flags);
+            FieldInfo[] actualFieldInfos = actual.GetType().GetFields(flags);
+            bool areEqual = true;
+            expectedFieldInfos.ToList().ForEach(pi =>
+            {
+                areEqual = comparison(pi,
+                                              actualFieldInfos.Where(p => p.Name.Equals(pi.Name)).SingleOrDefault
+                                                  ()) & areEqual;
+            });
+
+            return areEqual;
+        }
+
         public bool AreEqual(object expected, object actual)
         {
             return AreEqual(expected, actual, (actual != null) ? actual.GetType().Name : string.Empty);

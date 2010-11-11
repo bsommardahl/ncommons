@@ -18,22 +18,42 @@ namespace NCommons.Testing.Equality
                                                                 CompareProperty(pi, actualPropertyInfo, expected, actual,
                                                                                 comparisonContext, equal));
 
+            areEqual = comparisonContext.CompareFields(expected, actual,
+                                                               (fi, actualFieldInfo) =>
+                                                               CompareField(fi, actualFieldInfo, expected, actual,
+                                                                               comparisonContext, equal)) && areEqual;
+
             return areEqual;
         }
 
-        static bool CompareProperty(PropertyInfo pi, PropertyInfo actualPropertyInfo, object expected, object actual,
+        static bool CompareField(FieldInfo expectedFieldInfo, FieldInfo actualFieldInfo, object expected, object actual, IComparisonContext comparisonContext, bool equal)
+        {
+            object value1 = expectedFieldInfo.GetValue(expected);
+
+            if (actualFieldInfo == null)
+            {
+                return comparisonContext
+                    .AreEqual(value1, Activator.CreateInstance(typeof(MissingMember<>)
+                                                                   .MakeGenericType(expectedFieldInfo.FieldType)), expectedFieldInfo.Name);
+            }
+
+            object value2 = actualFieldInfo.GetValue(actual);
+            return comparisonContext.AreEqual(value1, value2, expectedFieldInfo.Name);  
+        }
+
+        static bool CompareProperty(PropertyInfo expectedPropertyInfo, PropertyInfo actualPropertyInfo, object expected, object actual,
                              IComparisonContext comparisonContext, bool areEqual)
         {
-            ParameterInfo[] indexes = pi.GetIndexParameters();
+            ParameterInfo[] indexes = expectedPropertyInfo.GetIndexParameters();
 
             if (indexes.Length == 0)
             {
-                areEqual = CompareStandardProperty(pi, actualPropertyInfo, expected, actual, comparisonContext) &&
+                areEqual = CompareStandardProperty(expectedPropertyInfo, actualPropertyInfo, expected, actual, comparisonContext) &&
                            areEqual;
             }
             else
             {
-                areEqual = CompareIndexedProperty(pi, expected, actual, indexes, comparisonContext) && areEqual;
+                areEqual = CompareIndexedProperty(expectedPropertyInfo, expected, actual, indexes, comparisonContext) && areEqual;
             }
 
             return areEqual;

@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace NCommons.Testing.Equality
+﻿namespace NCommons.Testing.Equality
 {
     public interface IConfigurationContext
     {
@@ -8,12 +6,6 @@ namespace NCommons.Testing.Equality
         void IgnoreTypes();
         void AddStrategy<T>() where T : IComparisonStrategy, new();
         void AddStrategy(IComparisonStrategy comparisonStrategy);
-    }
-
-    public interface IConfiguredContext
-    {
-        List<IComparisonStrategy> Strategies { get; }
-        IWriter Writer { get; }
-        bool IgnoreTypes { get; }
+        void Include(MemberType memberType);
     }
 }

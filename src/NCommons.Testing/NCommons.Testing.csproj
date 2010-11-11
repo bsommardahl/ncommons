@@ -42,9 +42,12 @@
   <ItemGroup>
     <Compile Include="Equality\EqualityComparer.cs" />
     <Compile Include="Equality\EqualityResult.cs" />
+    <Compile Include="Equality\IComparisonContext.cs" />
     <Compile Include="Equality\IComparisonStrategy.cs" />
     <Compile Include="Equality\IConfigurationContext.cs" />
+    <Compile Include="Equality\IConfiguredContext.cs" />
     <Compile Include="Equality\IWriter.cs" />
+    <Compile Include="Equality\MemberType.cs" />
     <Compile Include="Equality\MissingMember.cs" />
     <Compile Include="Equality\NullWriter.cs" />
     <Compile Include="Equality\ShouldExtensions.cs" />

@@ -70,6 +70,8 @@
     <Compile Include="ExpectedObjectSpecs\when_comparing_equal_objects_with_two_indexes.cs" />
     <Compile Include="ExpectedObjectSpecs\when_comparing_unequal_objects_with_ienumerable.cs" />
     <Compile Include="ExpectedObjectSpecs\when_comparing_unequal_objects_with_ienumerable_of_same_count.cs" />
+    <Compile Include="ExpectedObjectSpecs\when_comparing_unequal_objects_with_string_field_configured_for_fields.cs" />
+    <Compile Include="ExpectedObjectSpecs\when_comparing_unequal_objects_with_string_field_not_configured_for_fields.cs" />
     <Compile Include="ExpectedObjectSpecs\when_comparing_unequal_objects_with_two_indexes.cs" />
     <Compile Include="ExpectedObjectSpecs\when_comparing_unequal_object_with_string_configured_with_writer.cs" />
     <Compile Include="ExpectedObjectSpecs\when_comparing_unequal_structures.cs" />
@@ -103,6 +105,7 @@
     <Compile Include="TestTypes\StructureType.cs" />
     <Compile Include="TestTypes\TypeWithIEnumerable.cs" />
     <Compile Include="TestTypes\TypeWithString2.cs" />
+    <Compile Include="TestTypes\TypeWithStringField.cs" />
     <Compile Include="TypeOfSpecs\when_retrieving_property.cs" />
   </ItemGroup>
   <ItemGroup>

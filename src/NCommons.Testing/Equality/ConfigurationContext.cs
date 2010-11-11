@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Reflection;
 
 namespace NCommons.Testing.Equality
 {
@@ -7,6 +9,7 @@ namespace NCommons.Testing.Equality
         readonly List<IComparisonStrategy> _strategies = new List<IComparisonStrategy>();
         bool _ignoreTypes;
         IWriter _writer = NullWriter.Instance;
+        MemberType _memberType;
 
         public void WithWriter(IWriter writer)
         {
@@ -28,6 +31,11 @@ namespace NCommons.Testing.Equality
             Strategies.Add(comparisonStrategy);
         }
 
+        public void Include(MemberType memberType)
+        {
+             _memberType |= memberType;
+        }
+
         public List<IComparisonStrategy> Strategies
         {
             get { return _strategies; }
@@ -41,6 +49,18 @@ namespace NCommons.Testing.Equality
         bool IConfiguredContext.IgnoreTypes
         {
             get { return _ignoreTypes; }
+        }
+
+        public BindingFlags GetFieldBindingFlags()
+        {
+            BindingFlags flags = BindingFlags.Default;
+
+           if((_memberType & MemberType.PublicFields) == MemberType.PublicFields)
+           {
+               flags |= BindingFlags.Public | BindingFlags.Instance;
+           }
+
+            return flags;
         }
     }
 }
